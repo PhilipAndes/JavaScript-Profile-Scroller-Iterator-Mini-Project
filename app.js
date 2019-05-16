@@ -30,6 +30,34 @@ const data = [
 // After writing the function profileIterator below, we want to go under the data, (so right here) and initialize the variable profiles and set it to the profileIterator function, and we want to use the data here as parameter:
 const profiles = profileIterator(data);
 
+// We also need a clickevent, because when we click on the next button in the UI we want to iterate true the profiles:
+// Next Event:
+document.getElementById('next').addEventListener('click', nextProfile);
+
+// Next profile Display
+function nextProfile() {
+    //We first need to iterate with profiles next() . value:
+    const currentProfile = profiles.next().value;
+
+    // Then we want the to put the content at the imageDisplay and profileDisplay in the UI, so lets say:
+    // use backticks because we gonna use a template literal
+    //Then we create a list with bootstrap classes to display the profile. 
+    // Then we want the data from above:
+    document.getElementById('profileDisplay').innerHTML = `
+        <ul class="list-group">
+            <li class="list-group-item">Name: ${currentProfile.name}</li>
+            <li class="list-group-item">Age: ${currentProfile.age}</li>   <li class="list-group-item">Location: ${currentProfile.location}</li>
+            <li class="list-group-item">Preference: ${currentProfile.gender} looking for ${currentProfile.lookingfor}</li>
+        </ul>
+    `;
+
+    // Image display:
+    document.getElementById('imageDisplay').innerHTML = `
+    <img src="${currentProfile.image}">    
+    `;
+}
+
+
 // So now lets create the actual iterator function:
 
 // Profile Iterator:
