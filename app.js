@@ -30,6 +30,10 @@ const data = [
 // After writing the function profileIterator below, we want to go under the data, (so right here) and initialize the variable profiles and set it to the profileIterator function, and we want to use the data here as parameter:
 const profiles = profileIterator(data);
 
+// When we load the page, we want to always see the first profile so we just have to call the function:
+// Call first profile:
+nextProfile();
+
 // We also need a clickevent, because when we click on the next button in the UI we want to iterate true the profiles:
 // Next Event:
 document.getElementById('next').addEventListener('click', nextProfile);
@@ -43,18 +47,24 @@ function nextProfile() {
     // use backticks because we gonna use a template literal
     //Then we create a list with bootstrap classes to display the profile. 
     // Then we want the data from above:
-    document.getElementById('profileDisplay').innerHTML = `
-        <ul class="list-group">
-            <li class="list-group-item">Name: ${currentProfile.name}</li>
-            <li class="list-group-item">Age: ${currentProfile.age}</li>   <li class="list-group-item">Location: ${currentProfile.location}</li>
-            <li class="list-group-item">Preference: ${currentProfile.gender} looking for ${currentProfile.lookingfor}</li>
-        </ul>
-    `;
+    // Because if we click next and there are no more profiles we get an error of undefined, so we are going to wrap this up in a if else statement and say; if currentProfile is not equal to undefined we want to load the next person, else reload the window:
+    if(currentProfile !== undefined) {
+        document.getElementById('profileDisplay').innerHTML = `
+            <ul class="list-group">
+                <li class="list-group-item">Name: ${currentProfile.name}</li>
+                <li class="list-group-item">Age: ${currentProfile.age}</li>   <li class="list-group-item">Location: ${currentProfile.location}</li>
+                <li class="list-group-item">Preference: ${currentProfile.gender} looking for ${currentProfile.lookingfor}</li>
+            </ul>
+        `;
 
-    // Image display:
-    document.getElementById('imageDisplay').innerHTML = `
-    <img src="${currentProfile.image}">    
-    `;
+        // Image display:
+        document.getElementById('imageDisplay').innerHTML = `
+        <img src="${currentProfile.image}">    
+        `;
+    } else {
+        // no more profiles:
+        window.location.reload();
+    }
 }
 
 
